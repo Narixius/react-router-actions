@@ -23,8 +23,7 @@ export function actions<T extends Record<string, (args: ActionFunctionArgs) => a
 }
 
 export const useAction = <Action extends { action: string; result: any } = any>(actionName: Action extends { action: infer ActionName; result: any } ? ActionName | (string & {}) : string) => {
-  type ActionResult = Action extends { action: string; result: infer Result } ? Result : any
-  const fetcher = useFetcher<ActionResult>()
+  const fetcher = useFetcher<Action extends { action: string; result: infer Result } ? Result : any>()
   const Form = useCallback(
     function ActionForm(props: ComponentProps<typeof fetcher.Form>) {
       return (

@@ -2,7 +2,7 @@
   "name": "react-router-actions",
   "version": "0.0.1",
   "type": "module",
-  "types": "dist/index.d.ts",
+  "types": "src/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsc -w",
