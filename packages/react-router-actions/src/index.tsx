@@ -1,5 +1,6 @@
-import { useCallback, type ComponentProps } from 'react'
-import { useFetcher, type ActionFunctionArgs } from 'react-router'
+import { useCallback, useMemo, type ComponentProps } from 'react'
+import { Form as ReactRouterForm, useActionData, useFetcher, useFormAction, useSearchParams, type ActionFunctionArgs } from 'react-router'
+import { addQueryParams, parsePath } from './lib/query'
 
 type ActionsReturnType<T extends Record<string, (args: ActionFunctionArgs) => any>> = {
   [K in keyof T]: ReturnType<T[K]> extends Promise<infer U> ? { action: K; result: U } : { action: K; result: ReturnType<T[K]> }
@@ -9,13 +10,13 @@ type ActionsReturnType<T extends Record<string, (args: ActionFunctionArgs) => an
 
 export function actions<T extends Record<string, (args: ActionFunctionArgs) => any>>(actionsDefinition: T): ActionsReturnType<T> {
   const executor = async (args: ActionFunctionArgs) => {
-    const req = args.request.clone()
-    const actionName = (await req.formData()).get('_a') as keyof T
-
+    const req = args.request
+    const parsedPath = parsePath(req.url)
+    const query = new URLSearchParams(parsedPath.search)
+    const actionName = (query.get('_action') || '').toString()
     if (!actionsDefinition[actionName]) {
       throw new Error(`Action "${String(actionName)}" is not defined.`)
     }
-
     return actionsDefinition[actionName](args)
   }
 
@@ -23,17 +24,26 @@ export function actions<T extends Record<string, (args: ActionFunctionArgs) => a
 }
 
 export const useAction = <Action extends { action: string; result: any } = any>(actionName: Action extends { action: infer ActionName; result: any } ? ActionName | (string & {}) : string) => {
-  const fetcher = useFetcher<Action extends { action: string; result: infer Result } ? Result : any>()
+  const currentActionPath = useFormAction()
+  const [queryParams] = useSearchParams()
+  const actionData = useActionData()
+  const fetcher = useFetcher()
+
+  const data = (!!(queryParams.get('_action')?.toString() && queryParams.get('_action')?.toString() === actionName) ? actionData : undefined) || fetcher.data
+
+  const actionPath = useMemo(() => {
+    return addQueryParams(currentActionPath, { _action: actionName })
+  }, [currentActionPath, actionName])
+
   const Form = useCallback(
-    function ActionForm(props: ComponentProps<typeof fetcher.Form>) {
+    function ActionForm(props: ComponentProps<typeof ReactRouterForm>) {
       return (
-        <fetcher.Form {...props} method={props.method || 'POST'}>
-          <input name="_a" value={actionName as string} type="hidden" />
+        <fetcher.Form action={actionPath} method={props.method || 'POST'} {...props}>
           {props.children}
         </fetcher.Form>
       )
     },
-    [actionName],
+    [actionPath],
   )
-  return { ...fetcher, Form }
+  return { ...fetcher, Form, data }
 }

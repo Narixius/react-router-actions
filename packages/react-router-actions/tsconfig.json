@@ -13,7 +13,6 @@
 		"allowJs": true,
 		// Bundler mode
 		"moduleResolution": "bundler",
-		"maxNodeModuleJsDepth": 4,
 		"noEmit": false,
 		"declaration": false,
 		"declarationMap": false,
