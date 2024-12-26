@@ -21,35 +21,35 @@ import { actions, useAction } from 'react-router-actions';
 import { useLoaderData } from 'react-router'
 
 export const action = actions({
-	updateUser: (ctx) => {
-		// update user ...
-		return { message: "User updated successfully" }
-	},
-	deleteUser: (ctx) => {
-		// delete user ...
-		return { message: "User deleted successfully" }
-	}
+  updateUser: (ctx) => {
+    // update user ...
+    return { message: "User updated successfully" }
+  },
+  deleteUser: (ctx) => {
+    // delete user ...
+    return { message: "User deleted successfully" }
+  }
 })
 
 export const loader = () => {
-	return { userInfo: {...} }
+  return { userInfo: {...} }
 }
 
 function EditUserRoute() {
-	const { userInfo } = useLoaderData()
-	const updateUserAction = useAction('updateUser')
-	const deleteUserAction = useAction('deleteUser')
+  const { userInfo } = useLoaderData()
+  const updateUserAction = useAction('updateUser')
+  const deleteUserAction = useAction('deleteUser')
   return (
-	<div>
+  <div>
     <updateUserAction.Form>
-		<input name='first_name' defaultValue={userInfo.first_name} />
-		<input name='last_name' defaultValue={userInfo.last_name} />
-		<button type='submit'>Save</button>
-	</updateUserAction.Form>
-	<deleteUserAction.Form>
-		<button type='submit'>Delete User</button>
-	</deleteUserAction.Form>
-	</div>
+    <input name='first_name' defaultValue={userInfo.first_name} />
+    <input name='last_name' defaultValue={userInfo.last_name} />
+    <button type='submit'>Save</button>
+  </updateUserAction.Form>
+  <deleteUserAction.Form>
+    <button type='submit'>Delete User</button>
+  </deleteUserAction.Form>
+  </div>
   );
 }
 
