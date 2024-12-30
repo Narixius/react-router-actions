@@ -1,4 +1,4 @@
-import { type ActionFunctionArgs, useFetcher } from 'react-router'
+import { useFetcher, type ActionFunctionArgs } from 'react-router'
 
 type ActionsReturnType<T extends Record<string, (args: ActionFunctionArgs) => any>> = {
   [K in keyof T]: ReturnType<T[K]> extends Promise<infer U> ? { action: K; result: U } : { action: K; result: ReturnType<T[K]> }

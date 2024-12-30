@@ -1,5 +1,7 @@
 import { useLoaderData } from 'react-router'
 import { actions, useAction } from 'react-router-actions'
+import { validatedAction } from 'react-router-actions/validation'
+import { z } from 'zod'
 import type { Route } from './+types/index'
 
 export function meta({}: Route.MetaArgs) {
@@ -13,14 +15,18 @@ type TodoItem = {
 const todos: TodoItem[] = []
 
 export const action = actions({
-  addTodo: async ctx => {
-    const form = await ctx.request.formData()
-    todos.push({
-      title: form.get('title')!.toString(),
-      done: false,
-    })
-    return { ok: true }
-  },
+  addTodo: validatedAction({
+    input: z.object({
+      title: z.string().nonempty(),
+    }),
+    handler: (ctx, body) => {
+      todos.push({
+        title: body.title,
+        done: false,
+      })
+      return { ok: true }
+    },
+  }),
   removeTodo: async ctx => {
     const form = await ctx.request.formData()
     const index = form.get('index')!.toString()

@@ -8,6 +8,16 @@
     "dev": "tsc -w",
     "build": "tsc"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./src/index.d.ts"
+    },
+    "./validation": {
+      "import": "./dist/validation.js",
+      "types": "./src/validation.d.ts"
+    }
+  },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18",
@@ -25,5 +35,8 @@
     "react-dom": "^18.2.0",
     "react-router": "^7.0.2",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@typeschema/main": "^0.14.1"
   }
 }
