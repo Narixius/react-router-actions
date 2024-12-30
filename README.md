@@ -12,6 +12,10 @@ npm i react-router-actions
 - [x] 0 Dependency
 - [x] Works with Javascript disabled
 - [ ] Supports callbacks (`onSuccess`, `onError`)
+- [ ] Support custom action url (call action of other routes not the only the preant route)
+- [ ] Support form validation using (https://github.com/decs/typeschema)
+- [ ] Create some examples
+
 
 ## Usage
 Import the `actions` from the `react-router-actions` package and define the action of the route using this utility method. The `actions` method takes an object as an argument, where each key represents an action name and the value is a action function that performs the action.
