@@ -38,24 +38,17 @@ export const action = actions({
   },
 })
 
+type Actions = typeof action
+
 export const loader = () => {
   return todos
 }
 
-/*
-  success/error callback
-  add addCustomActionPath (to the userAction like useAction('name', {action: '/dashboard'})) or to the form <action.Form action='/somewhere' />
-
-  create readme
-  no-js environment compatible
-  0 dependency
-*/
-
 export default function Home() {
   const todos = useLoaderData<typeof loader>()
-  const addTodo = useAction('addTodo')
-  const removeTodo = useAction('removeTodo')
-  const toggleTodo = useAction('toggleTodo')
+  const addTodo = useAction<Actions['addTodo']>('addTodo')
+  const removeTodo = useAction<Actions['removeTodo']>('removeTodo')
+  const toggleTodo = useAction<Actions['toggleTodo']>('toggleTodo')
 
   return (
     <div className="flex flex-col">
