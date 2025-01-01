@@ -9,11 +9,10 @@ npm i react-router-actions
 ```
 
 ### Features
-- [x] 0 Dependency
 - [x] Works with Javascript disabled
 - [ ] Supports callbacks (`onSuccess`, `onError`)
 - [ ] Support custom action url (call action of other routes not the only the preant route)
-- [ ] Support form validation using (https://github.com/decs/typeschema)
+- [x] Support form validation using [typeschema](https://github.com/decs/typeschema)
 - [ ] Create some examples
 
 

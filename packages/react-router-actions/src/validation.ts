@@ -25,7 +25,7 @@ export const validatedAction = <ActionArgs extends ActionFunctionArgs, TSchema e
     }
 
     const validation = await validate(schema, formData)
-    if (!validation.success) return data(validation.issues, { status: 400 }) as TResult
+    if (!validation.success) return data({ validationErrors: validation.issues }, { status: 400 }) as TResult
     return validatedActionOptions.handler(args, validation.data)
   }
 }

@@ -1,4 +1,5 @@
-import { useCallback, useMemo, type ComponentProps } from 'react'
+import { set } from 'lodash-es'
+import { useCallback, useEffect, useMemo, useRef, type ComponentProps } from 'react'
 import { Form as ReactRouterForm, useActionData, useFetcher, useFormAction, useSearchParams, type ActionFunctionArgs } from 'react-router'
 import { addQueryParams, parsePath } from './lib/query'
 
@@ -23,13 +24,43 @@ export function actions<T extends Record<string, (args: ActionFunctionArgs) => a
   return executor as unknown as ActionsReturnType<T>
 }
 
-export const useAction = <Action extends { action: string; result: any } = any>(actionName: Action extends { action: infer ActionName; result: any } ? ActionName | (string & {}) : string) => {
+type UseActionOptions<TResult> = {
+  onSuccess?: (data: TResult) => void
+  onError?: (data: unknown) => void
+}
+
+export const useAction = <Action extends { action: string; result: any } = any>(
+  actionName: Action extends { action: infer ActionName; result: infer ActionResult } ? ActionName | (string & {}) : string,
+  options?: UseActionOptions<Action extends { action: any; result: infer ActionResult } ? ActionResult : unknown>,
+) => {
   const currentActionPath = useFormAction()
   const [queryParams] = useSearchParams()
   const actionData = useActionData()
   const fetcher = useFetcher()
+  const prevState = useRef(fetcher.state)
 
   const data = (!!(queryParams.get('_action')?.toString() && queryParams.get('_action')?.toString() === actionName) ? actionData : undefined) || fetcher.data
+
+  useEffect(() => {
+    const prevFetcherState = prevState.current
+    if (prevFetcherState === 'submitting' && fetcher.state === 'loading') {
+      if ('validationErrors' in fetcher.data) {
+        if (options?.onError) {
+          let errors = {}
+          if (fetcher.data['validationErrors'])
+            fetcher.data['validationErrors'].forEach((fieldError: { message: string; path: string[] }) => {
+              set(errors, fieldError.path, fieldError.message)
+            })
+          options.onError(errors)
+        }
+      } else {
+        if (options?.onSuccess) {
+          options.onSuccess(data)
+        }
+      }
+    }
+    prevState.current = fetcher.state
+  }, [fetcher.state, options?.onSuccess])
 
   const actionPath = useMemo(() => {
     return addQueryParams(currentActionPath, { _action: actionName })

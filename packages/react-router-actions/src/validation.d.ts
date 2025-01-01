@@ -1,8 +1,10 @@
 import type { Infer, Schema } from '@typeschema/all'
 import { type ActionFunctionArgs } from 'react-router'
 
-type ValidatedActionOptions<ActionArgs extends ActionFunctionArgs = ActionFunctionArgs, TSchema extends Schema = Schema, TReturn = unknown> = {
-  input: TSchema | ((args: ActionArgs) => Promise<TSchema> | TSchema)
+type InputFn<ActionArgs, TSchema> = (args: ActionArgs) => Promise<TSchema> | TSchema
+
+export type ValidatedActionOptions<ActionArgs extends ActionFunctionArgs = ActionFunctionArgs, TSchema extends Schema = Schema, TReturn = unknown> = {
+  input: TSchema | InputFn<ActionArgs, TSchema>
   handler: (args: ActionArgs, body: Infer<TSchema>) => TReturn
 }
 
