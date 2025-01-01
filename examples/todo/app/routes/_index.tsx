@@ -1,8 +1,9 @@
 import { useLoaderData } from 'react-router'
 import { actions, useAction } from 'react-router-actions'
 import { validatedAction } from 'react-router-actions/validation'
+import * as v from 'valibot'
 import { z } from 'zod'
-import type { Route } from './+types/index'
+import type { Route } from './+types/_index'
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: 'New React Router App' }, { name: 'description', content: 'Welcome to React Router!' }]
@@ -14,25 +15,29 @@ type TodoItem = {
 }
 const todos: TodoItem[] = []
 
-export const action = actions({
+export const clientAction = actions({
   addTodo: validatedAction({
     input: z.object({
       title: z.string().nonempty(),
     }),
-    handler: (ctx, body) => {
+    handler: async (ctx, input) => {
       todos.push({
-        title: body.title,
+        title: input.title,
         done: false,
       })
       return { ok: true }
     },
   }),
-  removeTodo: async ctx => {
-    const form = await ctx.request.formData()
-    const index = form.get('index')!.toString()
-    todos.splice(parseInt(index), 1)
-    return { ok: true }
-  },
+  removeTodo: validatedAction({
+    input: v.object({
+      index: v.pipe(v.string(), v.minLength(2)),
+    }),
+    handler: async (ctx, body) => {
+      const index = body.index
+      todos.splice(parseInt(index), 1)
+      return { ok: true }
+    },
+  }),
   toggleTodo: async ctx => {
     const form = await ctx.request.formData()
     const index = form.get('index')!.toString()
@@ -44,14 +49,14 @@ export const action = actions({
   },
 })
 
-type Actions = typeof action
+type Actions = typeof clientAction
 
-export const loader = () => {
+export const clientLoader = () => {
   return todos
 }
 
 export default function Home() {
-  const todos = useLoaderData<typeof loader>()
+  const todos = useLoaderData<typeof clientLoader>()
   const addTodo = useAction<Actions['addTodo']>('addTodo')
   const removeTodo = useAction<Actions['removeTodo']>('removeTodo')
   const toggleTodo = useAction<Actions['toggleTodo']>('toggleTodo')
