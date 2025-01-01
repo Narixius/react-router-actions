@@ -1,4 +1,5 @@
 {
   "name": "react-router-actions",
-  "private": true
+  "private": true,
+  "version": "0.0.1"
 }
