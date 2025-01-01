@@ -28,6 +28,9 @@ importers:
       react-router:
         specifier: ^7.0.2
         version: 7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      valibot:
+        specifier: 0.42.1
+        version: 0.42.1(typescript@5.7.2)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -38,6 +41,9 @@ importers:
       '@react-router/dev':
         specifier: ^7.0.2
         version: 7.1.1(@react-router/serve@7.1.1(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2))(@types/node@20.17.10)(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)(vite@5.4.11(@types/node@20.17.10))
+      '@react-router/fs-routes':
+        specifier: ^7.1.1
+        version: 7.1.1(@react-router/dev@7.1.1(@react-router/serve@7.1.1(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2))(@types/node@20.17.10)(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)(vite@5.4.11(@types/node@20.17.10)))(typescript@5.7.2)
       '@remix-run/cloudflare':
         specifier: ^2.15.2
         version: 2.15.2(@cloudflare/workers-types@4.20241224.0)(typescript@5.7.2)
@@ -77,9 +83,9 @@ importers:
 
   packages/react-router-actions:
     dependencies:
-      '@typeschema/main':
+      '@typeschema/all':
         specifier: ^0.14.1
-        version: 0.14.1(@typeschema/zod@0.14.0(zod@3.24.1))
+        version: 0.14.1(zod@3.24.1)
     devDependencies:
       '@types/react':
         specifier: ^19.0.1
@@ -467,6 +473,16 @@ packages:
       typescript:
         optional: true
 
+  '@react-router/fs-routes@7.1.1':
+    resolution: {integrity: sha512-FXe4d5sKRwa3Yj1xz4rtnxpmwG1IENr+Jd8fQd4IxbC6u/HJrIURacq1l83cTr62Uerf5N4h3v3pGgDEmmGwcg==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      '@react-router/dev': ^7.1.1
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   '@react-router/node@7.1.1':
     resolution: {integrity: sha512-5X79SfJ1IEEsttt0oo9rhO9kgxXyBTKdVBsz3h0WHTkRzbRk0VEpVpBW3PQ1RpkgEaAHwJ8obVl4k4brdDSExA==}
     engines: {node: '>=20.0.0'}
@@ -619,12 +635,94 @@ packages:
   '@types/react@19.0.2':
     resolution: {integrity: sha512-USU8ZI/xyKJwFTpjSVIrSeHBVAGagkHQKPNbxeWwql/vDmnTIBgx+TJnhFnj1NXgz8XfprU0egV2dROLGpsBEg==}
 
+  '@typeschema/all@0.14.1':
+    resolution: {integrity: sha512-deXUg4PcpGMvSxS8FHJLDwvxCDmUnQidm7Akolu4xnhHJ4k9La2ebPugBJTZaYEkeSPEwdy1CZypqawM/1YcIg==}
+
+  '@typeschema/arktype@0.14.0':
+    resolution: {integrity: sha512-3/b0k8RMHO//uJh/NhrgzBsykVo7KUl1+p86N+/9r8Lducbuigu9sOEh/PVVivj5XnrZZPAFQV9QbeUWhClo8Q==}
+    peerDependencies:
+      arktype: ^2.0.0-rc.0
+    peerDependenciesMeta:
+      arktype:
+        optional: true
+
+  '@typeschema/class-validator@0.3.0':
+    resolution: {integrity: sha512-OJSFeZDIQ8EK1HTljKLT5CItM2wsbgczLN8tMEfz3I1Lmhc5TBfkZ0eikFzUC16tI3d1Nag7um6TfCgp2I2Bww==}
+    peerDependencies:
+      class-validator: ^0.14.1
+    peerDependenciesMeta:
+      class-validator:
+        optional: true
+
   '@typeschema/core@0.14.0':
     resolution: {integrity: sha512-Ia6PtZHcL3KqsAWXjMi5xIyZ7XMH4aSnOQes8mfMLx+wGFGtGRNlwe6Y7cYvX+WfNK67OL0/HSe9t8QDygV0/w==}
     peerDependencies:
       '@types/json-schema': ^7.0.15
     peerDependenciesMeta:
       '@types/json-schema':
+        optional: true
+
+  '@typeschema/deepkit@0.14.0':
+    resolution: {integrity: sha512-LKRdjpmIYkHZc4EvkwIBYOpBOUs1hCXSSlisUZgG4WhPkUC49mIk6B8oYOyHNyXl7KxUToARO/Zl3Ido6eTyyg==}
+    peerDependencies:
+      '@deepkit/type': ^1.0.1-alpha.145
+    peerDependenciesMeta:
+      '@deepkit/type':
+        optional: true
+
+  '@typeschema/effect@0.14.0':
+    resolution: {integrity: sha512-4agPuoqKgWeZ00SGnkQ5x6FUv2yCWqv/ZcMQlB2zlsJcdWBcbPZKG6xI20RMjXoDck4FTIE4Xd/xC87syziBoA==}
+    peerDependencies:
+      '@effect/schema': ^0.71.1
+      effect: ^3.6.5
+    peerDependenciesMeta:
+      '@effect/schema':
+        optional: true
+      effect:
+        optional: true
+
+  '@typeschema/fastest-validator@0.2.0':
+    resolution: {integrity: sha512-NJT9eIw19RJ5pkhX6yGT0S46Lout5XlgwIL70Bwiv5iDcBKq3Wh5qRKfxcjP5KwB3CkeP25MmcXmVm9ruE75Mg==}
+    peerDependencies:
+      fastest-validator: ^1.19.0
+    peerDependenciesMeta:
+      fastest-validator:
+        optional: true
+
+  '@typeschema/function@0.14.0':
+    resolution: {integrity: sha512-ZoOyx+ACG6Sax4nFWR5Va3eWpRXXm4Cr5y5T3i4yNKOwReaHa6UNrz2t31ToiXfT18Hbp6xTUZeu0qXLiJwDQg==}
+
+  '@typeschema/io-ts@0.14.0':
+    resolution: {integrity: sha512-fh7t7F/L5LnMKuL/kd+W9qy1vztbLt8rWxiaLSu4t9Qlj9o53lP2Fi3FjjW+IP7BPZja7s48NK4M6pJNI6VuyQ==}
+    peerDependencies:
+      fp-ts: ^2.16.9
+      io-ts: ^2.2.21
+    peerDependenciesMeta:
+      fp-ts:
+        optional: true
+      io-ts:
+        optional: true
+
+  '@typeschema/joi@0.14.0':
+    resolution: {integrity: sha512-rnudk6lJ3aZyXlz3/GPKbdmL50O7l2MTHEhDTcynAUowdiU2nVpVpAXUGufxrRlsGLuwu7y0yb4o6pQy8o/FyQ==}
+    peerDependencies:
+      joi: ^17.13.3
+      joi-to-json: ^4.3.0
+    peerDependenciesMeta:
+      joi:
+        optional: true
+      joi-to-json:
+        optional: true
+
+  '@typeschema/json@0.14.0':
+    resolution: {integrity: sha512-QU6hQzx9U3VKXSK0egNDanASGCE0CryjQVso3KdWldf1/rVAn5MRi6c3iyTdrayg3ZMETAT8wS7IXHVtcClo0Q==}
+    peerDependencies:
+      ajv: ^8.17.1
+      json-schema-to-ts: ^3.1.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
+      json-schema-to-ts:
         optional: true
 
   '@typeschema/main@0.14.1':
@@ -687,6 +785,84 @@ packages:
       '@typeschema/yup':
         optional: true
       '@typeschema/zod':
+        optional: true
+
+  '@typeschema/ow@0.14.0':
+    resolution: {integrity: sha512-6U5NpXyrkNN8ckTPTjSc7NVTD87vXCiOBD/ZlZWa0+BQnYLMjEFTeLgG4RSyMuBcjQT0N3aTyVmBQhxqzuib0Q==}
+    peerDependencies:
+      ow: ^0.28.2
+    peerDependenciesMeta:
+      ow:
+        optional: true
+
+  '@typeschema/runtypes@0.14.0':
+    resolution: {integrity: sha512-jPUSp0ad9al1MBdYvnmq059n/adjJ+3G7ozV7mqeO5W7v1vnMUKqAhaCxIR+jTYUv2ixKGTaEL/7Q1uaXD6pHg==}
+    peerDependencies:
+      runtypes: ^6.7.0
+    peerDependenciesMeta:
+      runtypes:
+        optional: true
+
+  '@typeschema/superstruct@0.14.0':
+    resolution: {integrity: sha512-/1h3VwK736zsWHeGirxbtYp5E7aI89pfhFFN9BZm3RbthuGL+ozkR2bnHrdkbl3sleVPLfrHmAsC7Y+znX67qQ==}
+    peerDependencies:
+      superstruct: ^2.0.2
+    peerDependenciesMeta:
+      superstruct:
+        optional: true
+
+  '@typeschema/suretype@0.2.0':
+    resolution: {integrity: sha512-AbVY4IHN3vGffUx40HPFaR5HMeXc/KyaBEP2sZsg8kL94EBfBzeLu0sg+0wR7cC1L2+M6MMdAYnkxMO08ESJnw==}
+    peerDependencies:
+      suretype: ^3.3.1
+    peerDependenciesMeta:
+      suretype:
+        optional: true
+
+  '@typeschema/typebox@0.14.0':
+    resolution: {integrity: sha512-+Td4CHkWQ17T60gEtA2SzeFp382CHEwsI7aWiqBq9YeqAwbkTrluGh6R9MNFHJzOLaYL+AG60b8fX9Rbcex0Tg==}
+    peerDependencies:
+      '@sinclair/typebox': ^0.33.7
+    peerDependenciesMeta:
+      '@sinclair/typebox':
+        optional: true
+
+  '@typeschema/valibot@0.14.0':
+    resolution: {integrity: sha512-Q2HTTSfXoEgo+55Nx0iprlpGolXgDbnGss6avLlXNtjvTNx606VDnLkpSyA6u/MS2mOIUO7GVGdCF6LLbLcqlg==}
+    peerDependencies:
+      '@gcornut/valibot-json-schema': ^0.37.0
+      valibot: ^0.39.0
+    peerDependenciesMeta:
+      '@gcornut/valibot-json-schema':
+        optional: true
+      valibot:
+        optional: true
+
+  '@typeschema/valita@0.2.0':
+    resolution: {integrity: sha512-1TCYGLPEvKn+AYXCF5Yef/8dSC2i+dxkpVP2LI8CLzz9Vletr00iBR8VtzC93DaQEg/WsN8OXSMCGF0gVs3acQ==}
+    peerDependencies:
+      '@badrap/valita': ^0.3.9
+    peerDependenciesMeta:
+      '@badrap/valita':
+        optional: true
+
+  '@typeschema/vine@0.2.0':
+    resolution: {integrity: sha512-UN82ifr8f3qdqKY4chanidioxx53ugOBG+H9jiyUb9iyFLtMIBxEefHeTSs7Vm6Z/DyaZITtas+TqIBem2k4Uw==}
+    peerDependencies:
+      '@vinejs/vine': ^2.1.0
+    peerDependenciesMeta:
+      '@vinejs/vine':
+        optional: true
+
+  '@typeschema/yup@0.14.0':
+    resolution: {integrity: sha512-KBki4UPDwnKKBtLDKGPLXZXUm6cV9+zLLWgbt2kSaZV4VonrDciuCq4h6P1opguEU2UsQiXuTcdVeqlTS3tA0g==}
+    peerDependencies:
+      '@sodaru/yup-to-json-schema': ^2.0.1
+      yup: ^1.4.0
+    peerDependenciesMeta:
+      '@sodaru/yup-to-json-schema':
+        optional: true
+      yup:
         optional: true
 
   '@typeschema/zod@0.14.0':
@@ -1746,6 +1922,14 @@ packages:
       typescript:
         optional: true
 
+  valibot@0.42.1:
+    resolution: {integrity: sha512-3keXV29Ar5b//Hqi4MbSdV7lfVp6zuYLZuA9V1PvQUsXqogr+u5lvLPLk3A4f74VUXDnf/JfWMN6sB+koJ/FFw==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
@@ -2239,6 +2423,13 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
+  '@react-router/fs-routes@7.1.1(@react-router/dev@7.1.1(@react-router/serve@7.1.1(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2))(@types/node@20.17.10)(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)(vite@5.4.11(@types/node@20.17.10)))(typescript@5.7.2)':
+    dependencies:
+      '@react-router/dev': 7.1.1(@react-router/serve@7.1.1(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2))(@types/node@20.17.10)(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)(vite@5.4.11(@types/node@20.17.10))
+      minimatch: 9.0.5
+    optionalDependencies:
+      typescript: 5.7.2
+
   '@react-router/node@7.1.1(react-router@7.1.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.2)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
@@ -2358,13 +2549,190 @@ snapshots:
     dependencies:
       csstype: 3.1.3
 
+  '@typeschema/all@0.14.1(zod@3.24.1)':
+    dependencies:
+      '@typeschema/arktype': 0.14.0
+      '@typeschema/class-validator': 0.3.0
+      '@typeschema/core': 0.14.0
+      '@typeschema/deepkit': 0.14.0
+      '@typeschema/effect': 0.14.0
+      '@typeschema/fastest-validator': 0.2.0
+      '@typeschema/function': 0.14.0
+      '@typeschema/io-ts': 0.14.0
+      '@typeschema/joi': 0.14.0
+      '@typeschema/json': 0.14.0
+      '@typeschema/main': 0.14.1(@typeschema/arktype@0.14.0)(@typeschema/class-validator@0.3.0)(@typeschema/deepkit@0.14.0)(@typeschema/effect@0.14.0)(@typeschema/fastest-validator@0.2.0)(@typeschema/function@0.14.0)(@typeschema/io-ts@0.14.0)(@typeschema/joi@0.14.0)(@typeschema/json@0.14.0)(@typeschema/ow@0.14.0)(@typeschema/runtypes@0.14.0)(@typeschema/superstruct@0.14.0)(@typeschema/suretype@0.2.0)(@typeschema/typebox@0.14.0)(@typeschema/valibot@0.14.0)(@typeschema/valita@0.2.0)(@typeschema/vine@0.2.0)(@typeschema/yup@0.14.0)(@typeschema/zod@0.14.0(zod@3.24.1))
+      '@typeschema/ow': 0.14.0
+      '@typeschema/runtypes': 0.14.0
+      '@typeschema/superstruct': 0.14.0
+      '@typeschema/suretype': 0.2.0
+      '@typeschema/typebox': 0.14.0
+      '@typeschema/valibot': 0.14.0
+      '@typeschema/valita': 0.2.0
+      '@typeschema/vine': 0.2.0
+      '@typeschema/yup': 0.14.0
+      '@typeschema/zod': 0.14.0(zod@3.24.1)
+    transitivePeerDependencies:
+      - '@badrap/valita'
+      - '@deepkit/type'
+      - '@effect/schema'
+      - '@gcornut/valibot-json-schema'
+      - '@sinclair/typebox'
+      - '@sodaru/yup-to-json-schema'
+      - '@types/json-schema'
+      - '@vinejs/vine'
+      - ajv
+      - arktype
+      - class-validator
+      - effect
+      - fastest-validator
+      - fp-ts
+      - io-ts
+      - joi
+      - joi-to-json
+      - json-schema-to-ts
+      - ow
+      - runtypes
+      - superstruct
+      - suretype
+      - valibot
+      - yup
+      - zod
+      - zod-to-json-schema
+
+  '@typeschema/arktype@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/class-validator@0.3.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
   '@typeschema/core@0.14.0': {}
 
-  '@typeschema/main@0.14.1(@typeschema/zod@0.14.0(zod@3.24.1))':
+  '@typeschema/deepkit@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/effect@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/fastest-validator@0.2.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/function@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/io-ts@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/joi@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/json@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/main@0.14.1(@typeschema/arktype@0.14.0)(@typeschema/class-validator@0.3.0)(@typeschema/deepkit@0.14.0)(@typeschema/effect@0.14.0)(@typeschema/fastest-validator@0.2.0)(@typeschema/function@0.14.0)(@typeschema/io-ts@0.14.0)(@typeschema/joi@0.14.0)(@typeschema/json@0.14.0)(@typeschema/ow@0.14.0)(@typeschema/runtypes@0.14.0)(@typeschema/superstruct@0.14.0)(@typeschema/suretype@0.2.0)(@typeschema/typebox@0.14.0)(@typeschema/valibot@0.14.0)(@typeschema/valita@0.2.0)(@typeschema/vine@0.2.0)(@typeschema/yup@0.14.0)(@typeschema/zod@0.14.0(zod@3.24.1))':
     dependencies:
       '@typeschema/core': 0.14.0
     optionalDependencies:
+      '@typeschema/arktype': 0.14.0
+      '@typeschema/class-validator': 0.3.0
+      '@typeschema/deepkit': 0.14.0
+      '@typeschema/effect': 0.14.0
+      '@typeschema/fastest-validator': 0.2.0
+      '@typeschema/function': 0.14.0
+      '@typeschema/io-ts': 0.14.0
+      '@typeschema/joi': 0.14.0
+      '@typeschema/json': 0.14.0
+      '@typeschema/ow': 0.14.0
+      '@typeschema/runtypes': 0.14.0
+      '@typeschema/superstruct': 0.14.0
+      '@typeschema/suretype': 0.2.0
+      '@typeschema/typebox': 0.14.0
+      '@typeschema/valibot': 0.14.0
+      '@typeschema/valita': 0.2.0
+      '@typeschema/vine': 0.2.0
+      '@typeschema/yup': 0.14.0
       '@typeschema/zod': 0.14.0(zod@3.24.1)
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/ow@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/runtypes@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/superstruct@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/suretype@0.2.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/typebox@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/valibot@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/valita@0.2.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/vine@0.2.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
+    transitivePeerDependencies:
+      - '@types/json-schema'
+
+  '@typeschema/yup@0.14.0':
+    dependencies:
+      '@typeschema/core': 0.14.0
     transitivePeerDependencies:
       - '@types/json-schema'
 
@@ -2375,7 +2743,6 @@ snapshots:
       zod: 3.24.1
     transitivePeerDependencies:
       - '@types/json-schema'
-    optional: true
 
   '@web3-storage/multipart-parser@1.0.0': {}
 
@@ -3440,6 +3807,10 @@ snapshots:
   utils-merge@1.0.1: {}
 
   valibot@0.41.0(typescript@5.7.2):
+    optionalDependencies:
+      typescript: 5.7.2
+
+  valibot@0.42.1(typescript@5.7.2):
     optionalDependencies:
       typescript: 5.7.2
 

@@ -1,9 +1,7 @@
 {
   "name": "react-router-actions",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
-  "types": "src/index.d.ts",
-  "main": "dist/index.js",
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc"
@@ -37,6 +35,6 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@typeschema/main": "^0.14.1"
+    "@typeschema/all": "^0.14.1"
   }
 }

@@ -1,4 +1,4 @@
-import type { Infer, Schema } from '@typeschema/main'
+import type { Infer, Schema } from '@typeschema/all'
 import { type ActionFunctionArgs } from 'react-router'
 
 type ValidatedActionOptions<ActionArgs extends ActionFunctionArgs = ActionFunctionArgs, TSchema extends Schema = Schema, TReturn = unknown> = {
