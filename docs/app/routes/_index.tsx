@@ -1,6 +1,5 @@
 import { useLoaderData } from 'react-router'
-import { actions, useAction } from 'react-router-actions'
-import { validatedAction } from 'react-router-actions/validation'
+import { actions, useAction, validatedAction } from 'react-router-actions'
 import * as v from 'valibot'
 import { z } from 'zod'
 import type { Route } from './+types/_index'

@@ -46,9 +46,9 @@ export const useAction = <Action extends { action: string; result: any; fields?:
   actionName: Action extends { action: infer ActionName; result: infer ActionResult } ? ActionName | (string & {}) : string,
   options?: UseActionOptions<Action extends { action: any; result: infer ActionResult } ? ActionResult : unknown>,
 ): ReturnType<typeof useFetcher<Action extends { action: string; result: infer Result } ? Result : any>> & {
-  errors: Action extends { action: any; fields: infer Fields } ? Record<keyof Fields, string> : any
+  errors: Action extends { action: any; fields: infer Fields } ? Record<keyof Fields | (string & {}), string> : any
 } => {
-  type TErrors = Action extends { action: any; fields: infer Fields } ? Record<keyof Fields, string> : any
+  type TErrors = Action extends { action: any; fields: infer Fields } ? Record<keyof Fields | (string & {}), string> : any
   const currentActionPath = useFormAction()
   const [queryParams] = useSearchParams()
   const actionData = useActionData()
