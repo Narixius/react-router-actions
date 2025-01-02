@@ -2,19 +2,11 @@
   "name": "react-router-actions",
   "version": "0.0.5",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./src/index.d.ts",
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc && tsc-alias"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./src/index.d.ts"
-    },
-    "./validation": {
-      "import": "./dist/validation.js",
-      "types": "./src/validation.d.ts"
-    }
   },
   "peerDependencies": {
     "react": ">=18",
