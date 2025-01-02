@@ -1,10 +1,10 @@
 {
   "name": "react-router-actions",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "tsc -w",
-    "build": "tsc"
+    "build": "tsc && tsc-alias"
   },
   "exports": {
     ".": {
@@ -33,6 +33,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^7.0.2",
+    "tsc-alias": "^1.8.10",
     "typescript": "^5.0.0"
   },
   "dependencies": {
