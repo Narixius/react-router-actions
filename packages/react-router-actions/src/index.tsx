@@ -2,9 +2,8 @@ import { Infer, Schema, validate } from '@typeschema/all'
 import { set } from 'lodash-es'
 import { startTransition, useCallback, useEffect, useMemo, useRef, useState, type ComponentProps } from 'react'
 import { data, Form as ReactRouterForm, useActionData, useFetcher, useFormAction, useSearchParams, type ActionFunctionArgs } from 'react-router'
+import { getQuery, parsePath, withQuery } from 'ufo'
 import { parseFormDataToObject } from './lib/form-parser'
-import { addQueryParams, parsePath } from './lib/query'
-
 type InputFn<ActionArgs, TSchema> = (args: ActionArgs) => Promise<TSchema> | TSchema
 
 type ValidatedActionOptions<ActionArgs extends ActionFunctionArgs = ActionFunctionArgs, TSchema extends Schema = Schema, TReturn = unknown> = {
@@ -42,6 +41,15 @@ type UseActionOptions<TResult> = {
   onError?: (data: unknown) => void
 }
 
+const getError = (data: any) => {
+  let errors = {}
+  if (data && data['validationErrors'])
+    data['validationErrors'].forEach((fieldError: { message: string; path: string[] }) => {
+      set(errors, fieldError.path, fieldError.message)
+    })
+  return errors
+}
+
 export const useAction = <Action extends { action: string; result: any; fields?: any } = any>(
   actionName: Action extends { action: infer ActionName; result: infer ActionResult } ? ActionName | (string & {}) : string,
   options?: UseActionOptions<Action extends { action: any; result: infer ActionResult } ? ActionResult : unknown>,
@@ -54,8 +62,8 @@ export const useAction = <Action extends { action: string; result: any; fields?:
   const actionData = useActionData()
   const fetcher = useFetcher()
   const prevState = useRef(fetcher.state)
-  const [errors, setErrors] = useState<TErrors>({} as TErrors)
   const data = (!!(queryParams.get('_action')?.toString() && queryParams.get('_action')?.toString() === actionName) ? actionData : undefined) || fetcher.data
+  const [errors, setErrors] = useState<TErrors>(getError(data) as TErrors)
 
   useEffect(() => {
     const prevFetcherState = prevState.current
@@ -66,12 +74,8 @@ export const useAction = <Action extends { action: string; result: any; fields?:
       isDataWithResponseInit = true
     }
     if ((prevFetcherState === 'submitting' && fetcher.state !== 'loading') || isDataWithResponseInit) {
-      if ('validationErrors' in data) {
-        let errors = {}
-        if (data['validationErrors'])
-          data['validationErrors'].forEach((fieldError: { message: string; path: string[] }) => {
-            set(errors, fieldError.path, fieldError.message)
-          })
+      if (data && 'validationErrors' in data) {
+        let errors = getError(data)
         setErrors(errors as unknown as TErrors)
         if (options?.onError) {
           options.onError(errors)
@@ -85,10 +89,12 @@ export const useAction = <Action extends { action: string; result: any; fields?:
         }
       }
     }
-  }, [fetcher.data, options?.onSuccess])
+  }, [fetcher.data])
 
   const actionPath = useMemo(() => {
-    return addQueryParams(currentActionPath, { _action: actionName })
+    const query = getQuery(currentActionPath)
+    query._action = actionName
+    return withQuery(parsePath(currentActionPath).pathname, query)
   }, [currentActionPath, actionName])
 
   const Form = useCallback(

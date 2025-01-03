@@ -1,6 +1,6 @@
 {
   "name": "react-router-actions",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./src/index.d.ts",
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@typeschema/all": "^0.14.1",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "ufo": "^1.5.4"
   }
 }
